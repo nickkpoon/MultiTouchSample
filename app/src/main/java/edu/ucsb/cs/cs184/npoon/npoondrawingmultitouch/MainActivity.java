@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs184.npoon.npoondrawingmultitouch;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -17,15 +18,14 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.Random;
 
-public class MainActivity extends ActionBarActivity implements SurfaceHolder.Callback{
+public class MainActivity extends ActionBarActivity{
 
-    SurfaceHolder surfaceHolder;
-    Paint paint = new Paint();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -47,22 +47,10 @@ public class MainActivity extends ActionBarActivity implements SurfaceHolder.Cal
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        //tryDrawing(holder);
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int frmt, int w, int h) {
-        //tryDrawing(holder);
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {}
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //setContentView(new drawView(this));
 
         final Button button1 = (Button)findViewById(R.id.button);
         final Button button2 = (Button)findViewById(R.id.button2);
@@ -79,11 +67,10 @@ public class MainActivity extends ActionBarActivity implements SurfaceHolder.Cal
         int button1Color3 = buttonClick(button3);
         int button1Color4 = buttonClick(button4);
 
-
-        ConstraintLayout myLayout = (ConstraintLayout) findViewById(R.id.myLayout);
-        View surface = findViewById(R.id.surfaceView);
-        surface.setBackgroundColor(Color.WHITE);
-        myLayout.setOnTouchListener(new ConstraintLayout.OnTouchListener(){
+        LinearLayout surface = (LinearLayout)findViewById(R.id.surface);
+        surface.addView(new CanvasView(this));
+        /*surface.setBackgroundColor(Color.WHITE);
+        surface.setOnTouchListener(new LinearLayout.OnTouchListener(){
             public boolean onTouch(View v, MotionEvent m)
             {
                 //Toast.makeText(MainActivity.this, "TOUCHED!", Toast.LENGTH_LONG).show(); //DEBUG
@@ -91,19 +78,12 @@ public class MainActivity extends ActionBarActivity implements SurfaceHolder.Cal
                 return true;
             }
 
-        });
+        });*/
+
     }
 
-    public void handleTouch(MotionEvent m, Button one, Button two, Button three, Button four)
+    /*public void handleTouch(MotionEvent m, Button one, Button two, Button three, Button four)
     {
-        //Toast.makeText(MainActivity.this, "multiTouch clicked", Toast.LENGTH_LONG).show(); //DEBUG
-
-        /*Canvas canvas = surfaceHolder.lockCanvas();
-
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(3);         */
-
-
         int pointerCount = m.getPointerCount();
 
         for (int i = 0; i < pointerCount; i++)
@@ -113,27 +93,6 @@ public class MainActivity extends ActionBarActivity implements SurfaceHolder.Cal
             //int id = m.getActionMasked();
             int action = m.getActionMasked();
             int id = m.getActionIndex();
-            String actionString;
-            switch (action)
-            {
-                case MotionEvent.ACTION_DOWN:
-                    actionString = "down";
-                    break;
-                case MotionEvent.ACTION_UP:
-                    actionString = "UP";
-                    break;
-                case MotionEvent.ACTION_POINTER_DOWN:
-                    actionString = "PNTR DOWN";
-                    break;
-                case MotionEvent.ACTION_POINTER_UP:
-                    actionString = "PNTR UP";
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    actionString = "MOVE";
-                    break;
-                default:
-                    actionString = "";
-            }
 
             if (id == 0)
             {
@@ -157,32 +116,29 @@ public class MainActivity extends ActionBarActivity implements SurfaceHolder.Cal
                 Toast.makeText(MainActivity.this, "MORE THAN FOUR CLICKED", Toast.LENGTH_LONG).show();
 
             }
+            /*switch (action)
+            {
+                case MotionEvent.ACTION_DOWN:
+                    actionString = "down";
+                    break;
+                case MotionEvent.ACTION_UP:
+                    actionString = "UP";
+                    break;
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    actionString = "PNTR DOWN";
+                    break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    actionString = "PNTR UP";
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    actionString = "MOVE";
+                    break;
+                default:
+                    actionString = "";
+            }
+
 
         }
-
-
-
-
-    }
-
-    public void checkSurface(SurfaceHolder holder)
-    {
-        Canvas c = holder.lockCanvas();
-        if (c == null)
-        {
-            Toast.makeText(MainActivity.this, "NULL SURFACE!", Toast.LENGTH_LONG).show(); //DEBUG
-        }
-
-        else
-        {
-            Toast.makeText(MainActivity.this, "NOT NULL SURFACE!", Toast.LENGTH_LONG).show(); //DEBUG
-
-        }
-    }
-
-    /*public void surfaceDraw(Canvas canvas, int color)
-    {
-
     }*/
 
     public int randColor()
