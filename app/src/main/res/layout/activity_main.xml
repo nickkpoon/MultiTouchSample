@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:id="@+id/myLayout"
     tools:context="edu.ucsb.cs.cs184.npoon.npoondrawingmultitouch.MainActivity"
     tools:layout_editor_absoluteY="89dp"
@@ -12,10 +13,11 @@
 
     <LinearLayout
         android:id="@+id/myLinearLayOUT"
-        android:layout_width="0dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1.0"
+        android:paddingBottom="1dp"
         tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
@@ -70,4 +72,4 @@
 
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

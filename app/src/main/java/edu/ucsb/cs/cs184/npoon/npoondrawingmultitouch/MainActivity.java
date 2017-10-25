@@ -1,5 +1,6 @@
 package edu.ucsb.cs.cs184.npoon.npoondrawingmultitouch;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -22,9 +23,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.Random;
 
 public class MainActivity extends ActionBarActivity{
+
+    static String[] COLOR0 = {"#1b85b8", "#5a5255", "#559e83", "#ae5a41", "#c3cb71"};
+    static String[] COLOR1 = {"#586f75", "#aedce7", "#2d2f35", "#cc6649", "#468499"};
+    static String[] COLOR2 = {"#6bc4a7", "#4fa48c", "#de3242", "#b0394e", "#98191b"};
+    static String[] COLOR3 = {"#ffc707", "#ff7f23", "#fe652b", "#fe4936", "#fe0e4c"};
+
 
 
     @Override
@@ -42,8 +50,17 @@ public class MainActivity extends ActionBarActivity{
         if(item.getItemId() == R.id.clear)
         {
             Toast.makeText(MainActivity.this, "CLEAR CLICKED", Toast.LENGTH_LONG).show();
+            restartActivity();
+
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void restartActivity()
+    {
+        // do your work Here
+        Intent intent= new Intent(MainActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -52,23 +69,34 @@ public class MainActivity extends ActionBarActivity{
         setContentView(R.layout.activity_main);
         //setContentView(new drawView(this));
 
-        final Button button1 = (Button)findViewById(R.id.button);
-        final Button button2 = (Button)findViewById(R.id.button2);
-        final Button button3 = (Button)findViewById(R.id.button3);
-        final Button button4 = (Button)findViewById(R.id.button4);
+        String bColor0 = retrieveColor(0);
+        String bColor1 = retrieveColor(1);
+        String bColor2 = retrieveColor(2);
+        String bColor3 = retrieveColor(3);
 
-        button1.setBackgroundColor(randColor());
-        button2.setBackgroundColor(randColor());
-        button3.setBackgroundColor(randColor());
-        button4.setBackgroundColor(randColor());
+        final Button button0 = (Button)findViewById(R.id.button);
+        final Button button1 = (Button)findViewById(R.id.button2);
+        final Button button2 = (Button)findViewById(R.id.button3);
+        final Button button3 = (Button)findViewById(R.id.button4);
 
-        int button1Color1 = buttonClick(button1);
-        int button1Color2 = buttonClick(button2);
-        int button1Color3 = buttonClick(button3);
-        int button1Color4 = buttonClick(button4);
+        button0.setBackgroundColor(Color.parseColor(bColor0));
+        button1.setBackgroundColor(Color.parseColor(bColor1));
+        button2.setBackgroundColor(Color.parseColor(bColor2));
+        button3.setBackgroundColor(Color.parseColor(bColor3));
+
+        /*int button1Color1 = setButtonColor(button1);
+        int button1Color2 = setButtonColor(button2);
+        int button1Color3 = setButtonColor(button3);
+        int button1Color4 = setButtonColor(button4);*/
 
         LinearLayout surface = (LinearLayout)findViewById(R.id.surface);
-        surface.addView(new CanvasView(this));
+        surface.addView(new CanvasView(this, bColor0, bColor1, bColor2, bColor3));
+
+
+
+
+
+
         /*surface.setBackgroundColor(Color.WHITE);
         surface.setOnTouchListener(new LinearLayout.OnTouchListener(){
             public boolean onTouch(View v, MotionEvent m)
@@ -141,31 +169,45 @@ public class MainActivity extends ActionBarActivity{
         }
     }*/
 
-    public int randColor()
+    public String retrieveColor(int buttonID)
     {
         Random rand = new Random();
-        int one = rand.nextInt(256);
-        int two = rand.nextInt(256);
-        int three = rand.nextInt(256);
 
-        int color = Color.argb(255, one, two, three);
+        int randomNumber = rand.nextInt(4);
+        String color;
 
+        switch (buttonID)
+        {
+            case 0:
+                color = COLOR0[randomNumber];
+                break;
+            case 1:
+                color = COLOR1[randomNumber];
+                break;
+            case 2:
+                color = COLOR2[randomNumber];
+                break;
+            case 3:
+                color = COLOR3[randomNumber];
+                break;
+            default:
+                color = "#000000";
+        }
+        
         return color;
 
     }
 
-    public int buttonClick(Button b)
+    public void setButtonColor(Button b, String Color)
     {
         final Button click = b;
-        int randomColor = randColor();
         click.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                click.setBackgroundColor(randColor());
+                click.setBackgroundColor(0x1b85b8);
             }
         });
 
-        return randomColor;
 
     }
 
