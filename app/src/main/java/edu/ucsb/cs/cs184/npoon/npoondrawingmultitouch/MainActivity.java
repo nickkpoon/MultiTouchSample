@@ -1,29 +1,16 @@
 package edu.ucsb.cs.cs184.npoon.npoondrawingmultitouch;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import java.lang.reflect.Array;
 import java.util.Random;
 
 public class MainActivity extends ActionBarActivity{
@@ -56,7 +43,6 @@ public class MainActivity extends ActionBarActivity{
 
     public void restartActivity()
     {
-        // do your work Here
         Intent intent= new Intent(MainActivity.this, MainActivity.class);
         startActivity(intent);
     }
@@ -65,7 +51,6 @@ public class MainActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //setContentView(new drawView(this));
 
         final Button button0 = (Button)findViewById(R.id.button);
         final Button button1 = (Button)findViewById(R.id.button2);
@@ -124,16 +109,6 @@ public class MainActivity extends ActionBarActivity{
             }
         });
 
-
-
-        /*int button1Color1 = setButtonColor(button1);
-        int button1Color2 = setButtonColor(button2);
-        int button1Color3 = setButtonColor(button3);
-        int button1Color4 = setButtonColor(button4);*/
-
-
-
-
     }
 
     public String retrieveColor(int buttonID)
@@ -165,18 +140,6 @@ public class MainActivity extends ActionBarActivity{
 
     }
 
-    public void setButtonColor(Button b, String Color)
-    {
-        final Button click = b;
-        click.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                click.setBackgroundColor(0x1b85b8);
-            }
-        });
-
-
-    }
 
 
 }
