@@ -33,12 +33,6 @@ public class MainActivity extends ActionBarActivity{
     static String[] COLOR2 = {"#6bc4a7", "#4fa48c", "#de3242", "#b0394e", "#98191b"};
     static String[] COLOR3 = {"#ffc707", "#ff7f23", "#fe652b", "#fe4936", "#fe0e4c"};
 
-    String bColor0;
-    String bColor1;
-    String bColor2;
-    String bColor3;
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -78,10 +72,10 @@ public class MainActivity extends ActionBarActivity{
         final Button button2 = (Button)findViewById(R.id.button3);
         final Button button3 = (Button)findViewById(R.id.button4);
 
-        bColor0 = retrieveColor(0);
-        bColor1 = retrieveColor(1);
-        bColor2 = retrieveColor(2);
-        bColor3 = retrieveColor(3);
+        String bColor0 = retrieveColor(0);
+        String bColor1 = retrieveColor(1);
+        String bColor2 = retrieveColor(2);
+        String bColor3 = retrieveColor(3);
 
         button0.setBackgroundColor(Color.parseColor(bColor0));
         button1.setBackgroundColor(Color.parseColor(bColor1));
@@ -94,18 +88,18 @@ public class MainActivity extends ActionBarActivity{
         button0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bColor0 = retrieveColor(0);;
-                button0.setBackgroundColor(Color.parseColor(bColor0));
-                CanvasView.setColor(0, bColor0);
+                String c = retrieveColor(0);;
+                button0.setBackgroundColor(Color.parseColor(c));
+                CanvasView.setColor(0, c);
             }
         });
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bColor1 = retrieveColor(1);
-                button1.setBackgroundColor(Color.parseColor(bColor1));
-                CanvasView.setColor(1, bColor1);
+                String c = retrieveColor(1);
+                button1.setBackgroundColor(Color.parseColor(c));
+                CanvasView.setColor(1, c);
 
             }
         });
@@ -113,9 +107,9 @@ public class MainActivity extends ActionBarActivity{
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bColor2 = retrieveColor(2);
-                button2.setBackgroundColor(Color.parseColor(bColor2));
-                CanvasView.setColor(2, bColor2);
+                String c = retrieveColor(2);
+                button2.setBackgroundColor(Color.parseColor(c));
+                CanvasView.setColor(2, c);
 
             }
         });
@@ -123,9 +117,9 @@ public class MainActivity extends ActionBarActivity{
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bColor3 = retrieveColor(3);
-                button3.setBackgroundColor(Color.parseColor(bColor3));
-                CanvasView.setColor(3, bColor3);
+                String c = retrieveColor(3);
+                button3.setBackgroundColor(Color.parseColor(c));
+                CanvasView.setColor(3, c);
 
             }
         });
