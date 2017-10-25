@@ -29,10 +29,14 @@ import java.util.Random;
 public class MainActivity extends ActionBarActivity{
 
     static String[] COLOR0 = {"#1b85b8", "#5a5255", "#559e83", "#ae5a41", "#c3cb71"};
-    static String[] COLOR1 = {"#586f75", "#aedce7", "#2d2f35", "#cc6649", "#468499"};
+    static String[] COLOR1 = {"#eebcbc", "#eedeab", "#c8ecb5", "#bcc2f2", "#e8b6ee"};
     static String[] COLOR2 = {"#6bc4a7", "#4fa48c", "#de3242", "#b0394e", "#98191b"};
     static String[] COLOR3 = {"#ffc707", "#ff7f23", "#fe652b", "#fe4936", "#fe0e4c"};
 
+    String bColor0;
+    String bColor1;
+    String bColor2;
+    String bColor3;
 
 
     @Override
@@ -69,105 +73,74 @@ public class MainActivity extends ActionBarActivity{
         setContentView(R.layout.activity_main);
         //setContentView(new drawView(this));
 
-        String bColor0 = retrieveColor(0);
-        String bColor1 = retrieveColor(1);
-        String bColor2 = retrieveColor(2);
-        String bColor3 = retrieveColor(3);
-
         final Button button0 = (Button)findViewById(R.id.button);
         final Button button1 = (Button)findViewById(R.id.button2);
         final Button button2 = (Button)findViewById(R.id.button3);
         final Button button3 = (Button)findViewById(R.id.button4);
+
+        bColor0 = retrieveColor(0);
+        bColor1 = retrieveColor(1);
+        bColor2 = retrieveColor(2);
+        bColor3 = retrieveColor(3);
 
         button0.setBackgroundColor(Color.parseColor(bColor0));
         button1.setBackgroundColor(Color.parseColor(bColor1));
         button2.setBackgroundColor(Color.parseColor(bColor2));
         button3.setBackgroundColor(Color.parseColor(bColor3));
 
+        LinearLayout surface = (LinearLayout)findViewById(R.id.surface);
+        surface.addView(new CanvasView(this, bColor0, bColor1, bColor2, bColor3));
+
+        button0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bColor0 = retrieveColor(0);;
+                button0.setBackgroundColor(Color.parseColor(bColor0));
+                CanvasView.setColor(0, bColor0);
+            }
+        });
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bColor1 = retrieveColor(1);
+                button1.setBackgroundColor(Color.parseColor(bColor1));
+                CanvasView.setColor(1, bColor1);
+
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bColor2 = retrieveColor(2);
+                button2.setBackgroundColor(Color.parseColor(bColor2));
+                CanvasView.setColor(2, bColor2);
+
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bColor3 = retrieveColor(3);
+                button3.setBackgroundColor(Color.parseColor(bColor3));
+                CanvasView.setColor(3, bColor3);
+
+            }
+        });
+
+
+
         /*int button1Color1 = setButtonColor(button1);
         int button1Color2 = setButtonColor(button2);
         int button1Color3 = setButtonColor(button3);
         int button1Color4 = setButtonColor(button4);*/
 
-        LinearLayout surface = (LinearLayout)findViewById(R.id.surface);
-        surface.addView(new CanvasView(this, bColor0, bColor1, bColor2, bColor3));
 
 
-
-
-
-
-        /*surface.setBackgroundColor(Color.WHITE);
-        surface.setOnTouchListener(new LinearLayout.OnTouchListener(){
-            public boolean onTouch(View v, MotionEvent m)
-            {
-                //Toast.makeText(MainActivity.this, "TOUCHED!", Toast.LENGTH_LONG).show(); //DEBUG
-                handleTouch(m, button1, button2, button3, button4);
-                return true;
-            }
-
-        });*/
 
     }
-
-    /*public void handleTouch(MotionEvent m, Button one, Button two, Button three, Button four)
-    {
-        int pointerCount = m.getPointerCount();
-
-        for (int i = 0; i < pointerCount; i++)
-        {
-            int x = (int) m.getX(i);
-            int y = (int) m.getY(i);
-            //int id = m.getActionMasked();
-            int action = m.getActionMasked();
-            int id = m.getActionIndex();
-
-            if (id == 0)
-            {
-                one.setText("ONE");
-
-            }
-            else if (id == 1)
-            {
-                two.setText("ONE");
-
-            }
-            else if (id == 2)
-            {
-                three.setText("ONE");
-
-            }
-            else if (id == 3)
-                four.setText("THREE");
-            else
-            {
-                Toast.makeText(MainActivity.this, "MORE THAN FOUR CLICKED", Toast.LENGTH_LONG).show();
-
-            }
-            /*switch (action)
-            {
-                case MotionEvent.ACTION_DOWN:
-                    actionString = "down";
-                    break;
-                case MotionEvent.ACTION_UP:
-                    actionString = "UP";
-                    break;
-                case MotionEvent.ACTION_POINTER_DOWN:
-                    actionString = "PNTR DOWN";
-                    break;
-                case MotionEvent.ACTION_POINTER_UP:
-                    actionString = "PNTR UP";
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    actionString = "MOVE";
-                    break;
-                default:
-                    actionString = "";
-            }
-
-
-        }
-    }*/
 
     public String retrieveColor(int buttonID)
     {

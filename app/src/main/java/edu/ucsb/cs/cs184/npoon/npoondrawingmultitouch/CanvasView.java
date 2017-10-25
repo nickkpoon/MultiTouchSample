@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -30,10 +31,12 @@ public class CanvasView extends SurfaceView implements SurfaceHolder.Callback {
 
     boolean surfaceExists = false;
 
-    String firstPaint;
-    String secondPaint;
-    String thirdPaint;
-    String fourthPaint;
+    static String firstPaint;
+    static String secondPaint;
+    static String thirdPaint;
+    static String fourthPaint;
+
+    int count = -1;
 
 
 
@@ -77,14 +80,84 @@ public class CanvasView extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         setWillNotDraw(false);
 
+        /*final Button button0 = findViewById(R.id.button);
+        final Button button1 = findViewById(R.id.button2);
+        final Button button2 = findViewById(R.id.button3);
+        final Button button3 = findViewById(R.id.button4);
+
+        button0.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                firstPaint = MainActivity.retrieveColor(1);
+                button0.setBackgroundColor(Color.parseColor(firstPaint));
+            }
+        });
+
+
+        button1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                secondPaint = MainActivity.retrieveColor(1);
+                button1.setBackgroundColor(Color.parseColor(secondPaint));
+            }
+        });
+
+
+        button2.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                thirdPaint = MainActivity.retrieveColor(1);
+                button2.setBackgroundColor(Color.parseColor(thirdPaint));
+            }
+        });
+
+
+        button3.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                fourthPaint = MainActivity.retrieveColor(1);
+                button3.setBackgroundColor(Color.parseColor(fourthPaint));
+            }
+        });*/
+
 
     }
+
+    public static void setColor(int i, String color){
+
+        switch(i)
+        {
+            case(0):
+                firstPaint = color;
+                break;
+            case(1):
+                secondPaint = color;
+                break;
+            case(2):
+                thirdPaint = color;
+                break;
+            case(3):
+                fourthPaint = color;
+                break;
+        }
+    }
+
+
 
 
     @Override
     public void surfaceCreated(SurfaceHolder holder)
     {
         surfaceExists = true;
+
     }
 
     @Override
@@ -115,8 +188,7 @@ public class CanvasView extends SurfaceView implements SurfaceHolder.Callback {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        drawCanvas = new Canvas(bmp);
-        //onDraw(drawCanvas);
+        //drawCanvas = new Canvas(bmp);
 
     }
 
@@ -134,26 +206,28 @@ public class CanvasView extends SurfaceView implements SurfaceHolder.Callback {
             {
                 case(0):
                     drawPaint.setColor(Color.parseColor(firstPaint));
-                    canvas.drawPath(paths.get(i), drawPaint);
+                    //canvas.drawPath(paths.get(i), drawPaint);
                     break;
                 case(1):
                     drawPaint.setColor(Color.parseColor(secondPaint));
-                    canvas.drawPath(paths.get(i), drawPaint);
+                    //canvas.drawPath(paths.get(i), drawPaint);
                     break;
                 case(2):
                     drawPaint.setColor(Color.parseColor(thirdPaint));
-                    canvas.drawPath(paths.get(i), drawPaint);
+                    //canvas.drawPath(paths.get(i), drawPaint);
                     break;
                 case(3):
                     drawPaint.setColor(Color.parseColor(fourthPaint));
-                    canvas.drawPath(paths.get(i), drawPaint);
+                    //anvas.drawPath(paths.get(i), drawPaint);
                     break;
                 default:
                     drawPaint.setColor(Color.parseColor("#000000"));
-                    canvas.drawPath(paths.get(i), drawPaint);
+                    //canvas.drawPath(paths.get(i), drawPaint);
                     break;
             }
-            //canvas.drawPath(paths.get(i), drawPaint);
+            //drawPaint.setColor(Color.parseColor("#000000"));
+
+            canvas.drawPath(paths.get(i), drawPaint);
         }
     }
 
@@ -187,6 +261,7 @@ public class CanvasView extends SurfaceView implements SurfaceHolder.Callback {
                 path.moveTo(event.getX(index), event.getY(index));
                 paths.add(index, path);
                 pointers.add(index, id);
+
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -204,6 +279,32 @@ public class CanvasView extends SurfaceView implements SurfaceHolder.Callback {
             case MotionEvent.ACTION_POINTER_UP:
                 indexOfId = pointers.indexOf(id);
                 path = paths.get(indexOfId);
+
+                    /*switch(indexOfId)
+                    {
+                        case(0):
+                            drawPaint.setColor(Color.parseColor(firstPaint));
+                            //canvas.drawPath(paths.get(i), drawPaint);
+                            break;
+                        case(1):
+                            drawPaint.setColor(Color.parseColor(secondPaint));
+                            //canvas.drawPath(paths.get(i), drawPaint);
+                            break;
+                        case(2):
+                            drawPaint.setColor(Color.parseColor(thirdPaint));
+                            //canvas.drawPath(paths.get(i), drawPaint);
+                            break;
+                        case(3):
+                            drawPaint.setColor(Color.parseColor(fourthPaint));
+                            //canvas.drawPath(paths.get(i), drawPaint);
+                            break;
+                        default:
+                            drawPaint.setColor(Color.parseColor("#000000"));
+                            //canvas.drawPath(paths.get(i), drawPaint);
+                            break;
+                    }*/
+
+
                 if (path != null)
                 {
                     drawCanvas.drawPath(path, drawPaint);
